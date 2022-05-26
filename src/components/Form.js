@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Input from "./formComponents/Input";
-import validator from "validator";
 
 const Form = () => {
   const [signupInput, setSignUpInput] = useState({
@@ -16,7 +15,7 @@ const Form = () => {
 
   const handleClick = (e) => {
     e.preventDefault();
-    if (!validator.isEmail(signupInput.email)) {
+    if (!signupInput.email.includes("@")) {
       return setError({ email: "the email you input is invalid" });
     }
     if (signupInput.password !== signupInput.password2) {
