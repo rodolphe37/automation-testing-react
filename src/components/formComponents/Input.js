@@ -11,8 +11,8 @@ const Input = (props) => {
       <label style={labelStyle} htmlFor={id}>
         {nameLabel}
       </label>
-
       <input
+        role={id}
         value={keyState}
         onChange={handleChange}
         type={type}

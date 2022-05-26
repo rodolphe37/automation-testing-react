@@ -9,10 +9,6 @@ const Form = () => {
   });
   const [error, setError] = useState({ email: "", password: "" });
 
-  //   useEffect(() => {
-  //     console.log("signUp", signupInput);
-  //   }, [signupInput]);
-
   const handleClick = (e) => {
     e.preventDefault();
     if (!signupInput.email.includes("@")) {
@@ -33,7 +29,6 @@ const Form = () => {
         defaultValues={signupInput}
         keyState={signupInput.email}
         setter={setSignUpInput}
-        error={error}
       />
       {error.email !== "" && <p style={{ color: "red" }}>{error.email}</p>}
 
@@ -45,7 +40,6 @@ const Form = () => {
         defaultValues={signupInput}
         keyState={signupInput.password}
         setter={setSignUpInput}
-        error={error}
       />
 
       <Input
@@ -56,7 +50,6 @@ const Form = () => {
         defaultValues={signupInput}
         keyState={signupInput.password2}
         setter={setSignUpInput}
-        error={error}
       />
       {error.password !== "" && (
         <p style={{ color: "red" }}>{error.password}</p>
