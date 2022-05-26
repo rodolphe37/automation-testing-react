@@ -21,6 +21,7 @@ const Form = () => {
 
   return (
     <form data-testid="form" title="Form" style={formStyle}>
+      {error.email !== "" && <p style={{ color: "red" }}>{error.email}</p>}
       <Input
         nameLabel="Email address"
         type="email"
@@ -30,7 +31,6 @@ const Form = () => {
         keyState={signupInput.email}
         setter={setSignUpInput}
       />
-      {error.email !== "" && <p style={{ color: "red" }}>{error.email}</p>}
 
       <Input
         nameLabel="Password"
@@ -41,7 +41,9 @@ const Form = () => {
         keyState={signupInput.password}
         setter={setSignUpInput}
       />
-
+      {error.password !== "" && (
+        <p style={{ color: "red" }}>{error.password}</p>
+      )}
       <Input
         nameLabel="Confirm Password"
         type="password"
@@ -51,9 +53,7 @@ const Form = () => {
         keyState={signupInput.password2}
         setter={setSignUpInput}
       />
-      {error.password !== "" && (
-        <p style={{ color: "red" }}>{error.password}</p>
-      )}
+
       <button
         type="submit"
         className="btn btn-primary"
