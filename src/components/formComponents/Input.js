@@ -1,8 +1,9 @@
 const Input = (props) => {
-  const { nameLabel, type, id, placeholder, keyState, setter } = props;
+  const { nameLabel, type, id, placeholder, keyState, setter, defaultValues } =
+    props;
 
   const handleChange = (e) => {
-    setter(e.target.value);
+    setter({ ...defaultValues, [e.target.name]: e.target.value });
   };
 
   return (
@@ -10,8 +11,8 @@ const Input = (props) => {
       <label style={labelStyle} htmlFor={id}>
         {nameLabel}
       </label>
+
       <input
-        role={id}
         value={keyState}
         onChange={handleChange}
         type={type}
@@ -19,6 +20,7 @@ const Input = (props) => {
         name={id}
         placeholder={placeholder}
         style={inputsStyle}
+        data-testid={id}
       />
     </>
   );

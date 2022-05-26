@@ -1,10 +1,28 @@
 import { useState } from "react";
 import Input from "./formComponents/Input";
+import validator from "validator";
 
 const Form = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [password2, setPassword2] = useState("");
+  const [signupInput, setSignUpInput] = useState({
+    email: "",
+    password: "",
+    password2: "",
+  });
+  const [error, setError] = useState({ email: "", password: "" });
+
+  //   useEffect(() => {
+  //     console.log("signUp", signupInput);
+  //   }, [signupInput]);
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    if (!validator.isEmail(signupInput.email)) {
+      return setError({ email: "the email you input is invalid" });
+    }
+    if (signupInput.password !== signupInput.password2) {
+      setError({ password: "Your password do no match" });
+    }
+  };
 
   return (
     <form data-testid="form" title="Form" style={formStyle}>
@@ -13,16 +31,22 @@ const Form = () => {
         type="email"
         id="email"
         placeholder=""
-        keyState={email}
-        setter={setEmail}
+        defaultValues={signupInput}
+        keyState={signupInput.email}
+        setter={setSignUpInput}
+        error={error}
       />
+      {error.email !== "" && <p style={{ color: "red" }}>{error.email}</p>}
+
       <Input
         nameLabel="Password"
         type="password"
         id="password"
         placeholder=""
-        keyState={password}
-        setter={setPassword}
+        defaultValues={signupInput}
+        keyState={signupInput.password}
+        setter={setSignUpInput}
+        error={error}
       />
 
       <Input
@@ -30,11 +54,22 @@ const Form = () => {
         type="password"
         id="password2"
         placeholder=""
-        keyState={password2}
-        setter={setPassword2}
+        defaultValues={signupInput}
+        keyState={signupInput.password2}
+        setter={setSignUpInput}
+        error={error}
       />
-
-      <button>Submit</button>
+      {error.password !== "" && (
+        <p style={{ color: "red" }}>{error.password}</p>
+      )}
+      <button
+        type="submit"
+        className="btn btn-primary"
+        onClick={handleClick}
+        name="submit"
+      >
+        Submit
+      </button>
     </form>
   );
 };

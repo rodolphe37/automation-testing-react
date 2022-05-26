@@ -28,3 +28,25 @@ test("Should be able to type confirm password", () => {
   userEvent.type(formComponent, "123456");
   expect(formComponent.value).toBe("123456");
 });
+
+test("Should show email error message on validation", () => {
+  render(<Form />);
+  const emailErrorElement = screen.queryByText(
+    /the email you input is invalid/
+  );
+  const emailInputElement = screen.getByTestId("email");
+  const submitBtnElement = screen.getByRole("button", {
+    name: /submit/i,
+  });
+  expect(emailErrorElement).not.toBeInTheDocument();
+
+  userEvent.type(emailInputElement, "rodolphegmail.com");
+
+  userEvent.click(submitBtnElement);
+
+  const emailErrorElementAgain = screen.getByText(
+    "the email you input is invalid"
+  );
+
+  expect(emailErrorElementAgain).toBeTruthy();
+});
