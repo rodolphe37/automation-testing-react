@@ -1,27 +1,18 @@
-import { useState } from "react";
 import Input from "./formComponents/Input";
+import useForm from "./useForm";
 
 const Form = () => {
-  const [signupInput, setSignUpInput] = useState({
-    email: "",
-    password: "",
-    password2: "",
-  });
-  const [error, setError] = useState({ email: "", password: "" });
-
-  const handleClick = (e) => {
-    e.preventDefault();
-    if (!signupInput.email.includes("@")) {
-      return setError({ email: "the email you input is invalid" });
-    }
-    if (signupInput.password !== signupInput.password2) {
-      setError({ password: "Your password do no match" });
-    }
-  };
+  const {
+    signupInput,
+    setSignUpInput,
+    emailError,
+    passwordError,
+    handleClick,
+  } = useForm();
 
   return (
     <form data-testid="form" title="Form" style={formStyle}>
-      {error.email !== "" && <p style={{ color: "red" }}>{error.email}</p>}
+      {emailError !== "" && <p style={{ color: "red" }}>{emailError}</p>}
       <Input
         nameLabel="Email address"
         type="email"
@@ -41,9 +32,7 @@ const Form = () => {
         keyState={signupInput.password}
         setter={setSignUpInput}
       />
-      {error.password !== "" && (
-        <p style={{ color: "red" }}>{error.password}</p>
-      )}
+      {passwordError !== "" && <p style={{ color: "red" }}>{passwordError}</p>}
       <Input
         nameLabel="Confirm Password"
         type="password"

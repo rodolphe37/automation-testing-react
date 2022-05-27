@@ -32,7 +32,7 @@ test("Should be able to type confirm password", () => {
 test("Should show email error message on validation", () => {
   render(<Form />);
   const emailErrorElement = screen.queryByText(
-    /the email you input is invalid/
+    /the email you input is invalid/i
   );
   const emailInputElement = screen.getByTestId("email");
   const submitBtnElement = screen.getByRole("button", {
@@ -44,9 +44,34 @@ test("Should show email error message on validation", () => {
 
   userEvent.click(submitBtnElement);
 
-  const emailErrorElementAgain = screen.getByText(
-    "the email you input is invalid"
+  const emailErrorElementAgain = screen.queryByText(
+    /the email you input is invalid/i
   );
 
   expect(emailErrorElementAgain).toBeTruthy();
+});
+
+test("Should show password & confirm password is not equal on validation", () => {
+  render(<Form />);
+  const passwordErrorElement = screen.queryByText(/Your password do no match/i);
+
+  const passwordInputElement = screen.queryByTestId("password");
+  const confirmPasswordInputElement = screen.queryByTestId("password2");
+
+  const submitBtnElement = screen.getByRole("button", {
+    name: /submit/i,
+  });
+  expect(passwordErrorElement).not.toBeInTheDocument();
+
+  userEvent.type(passwordInputElement, "123");
+
+  userEvent.type(confirmPasswordInputElement, "321");
+
+  userEvent.click(submitBtnElement);
+
+  const passwordErrorElementAgain = screen.getByText(
+    /Your password do no match/i
+  );
+
+  expect(passwordErrorElementAgain).toBeTruthy();
 });
