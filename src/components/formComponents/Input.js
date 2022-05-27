@@ -5,7 +5,6 @@ const Input = (props) => {
   const handleChange = (e) => {
     setter({ ...defaultValues, [e.target.name]: e.target.value });
   };
-
   return (
     <>
       <label style={labelStyle} htmlFor={id}>
