@@ -1,6 +1,6 @@
 # Easy React example - automated testing: "reusable input component with github workflow!"
 
-- **Little example ho to test your reusable input component (testing if each input is empty or not, email & password error message is in the document, etc...)**
+- **Little example how to test your reusable input component (testing if each input is empty or not, email & password error message is in the document, etc...)**
 
 ---
 
